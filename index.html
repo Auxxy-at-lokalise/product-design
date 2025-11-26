@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lokalise Product Design Competency Matrix 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+        }
+
+        /* Chart Container Styling - Mandatory Requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px; /* Max width to prevent excessive stretching */
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px; /* Base height */
+            max-height: 500px;
+        }
+
+        /* Specific height adjustments for different chart types if needed */
+        .chart-container.radar-container {
+            height: 500px; /* Radar charts often need more square space */
+        }
+        
+        .chart-container.bar-container {
+            height: 350px;
+        }
+
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 300px;
+            }
+            .chart-container.radar-container {
+                height: 350px;
+            }
+        }
+
+        /* Custom Scrollbar for a polished feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+
+        /* AI Modal Styles */
+        .markdown-prose ul {
+            list-style-type: disc;
+            padding-left: 1.5em;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+        .markdown-prose strong {
+            color: #4F46E5;
+        }
+        .markdown-prose h3 {
+            font-size: 1.1em;
+            font-weight: 700;
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+        }
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 3px solid #4F46E5;
+            width: 24px;
+            height: 24px;
+            -webkit-animation: spin 1s linear infinite; /* Safari */
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <!-- 
+    Palette Selection: "Vibrant Tech" 
+    Primary: #4F46E5 (Indigo)
+    Secondary: #06B6D4 (Cyan)
+    Accent: #EC4899 (Pink - for Managerial track)
+    Background: #F3F4F6 (Cool Gray)
+    -->
+</head>
+<body class="antialiased pb-24">
+
+    <!-- 
+    Source Material Integration Plan:
+    1. Narrative: Start with the "Trio" context (Road to 2026) -> Show the Career Path Fork -> Compare Competencies (Lattice data) -> Deep Dive per Role.
+    2. Visuals:
+       - Radar Chart: Ideal for "Competency" comparison (Lattice 5 dimensions).
+       - Stacked Bar: Ideal for "Time Allocation" (Execution vs Strategy vs People).
+       - Flow Diagram (HTML/CSS): To show the Lead vs Staff split.
+    -->
+
+    <!-- Header Section -->
+    <header class="bg-indigo-900 text-white pt-16 pb-12 px-6 shadow-xl">
+        <div class="max-w-7xl mx-auto text-center">
+            <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
+                Product Design <span class="text-cyan-400">Competency Matrix</span>
+            </h1>
+            <p class="text-xl md:text-2xl text-indigo-200 max-w-3xl mx-auto">
+                A growth framework for horizontal teams, bridging Individual Contribution and Leadership in the "Trio" model.
+            </p>
+            <div class="mt-8 flex justify-center gap-4 flex-wrap">
+                <span class="px-4 py-2 bg-indigo-800 rounded-full text-sm font-semibold border border-indigo-600">Scope</span>
+                <span class="px-4 py-2 bg-indigo-800 rounded-full text-sm font-semibold border border-indigo-600">Execution</span>
+                <span class="px-4 py-2 bg-indigo-800 rounded-full text-sm font-semibold border border-indigo-600">Strategy</span>
+                <span class="px-4 py-2 bg-indigo-800 rounded-full text-sm font-semibold border border-indigo-600">Collaboration</span>
+                <span class="px-4 py-2 bg-indigo-800 rounded-full text-sm font-semibold border border-indigo-600">Mentorship</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Context: The Trio Model -->
+    <section class="py-12 px-6 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-6 border-l-8 border-cyan-500 pl-4">The Horizontal Trio</h2>
+                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                    At Lokalise, Product Design is not a service agency; it is a core partner. We operate in **Trios** consisting of a Product Manager (PM), Engineering Manager (EM), and Product Designer (PD). 
+                </p>
+                <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                    This matrix defines how a designer's role within that trio evolves from "execution partner" to "strategic driver" as they progress. Whether you are an IC focusing on craft or transitioning to management, your impact is measured by the success of your trio and the wider organization.
+                </p>
+            </div>
+            <!-- CSS Diagram for Trio -->
+            <div class="bg-white p-8 rounded-2xl shadow-lg flex justify-center items-center relative h-80">
+                <div class="absolute w-40 h-40 bg-indigo-100 rounded-full mix-blend-multiply filter blur-sm opacity-70 top-10 left-12 animate-blob"></div>
+                <div class="absolute w-40 h-40 bg-cyan-100 rounded-full mix-blend-multiply filter blur-sm opacity-70 top-10 right-12 animate-blob animation-delay-2000"></div>
+                <div class="absolute w-40 h-40 bg-pink-100 rounded-full mix-blend-multiply filter blur-sm opacity-70 bottom-10 inset-x-0 mx-auto animate-blob animation-delay-4000"></div>
+                
+                <div class="relative z-10 flex flex-col items-center">
+                    <div class="flex space-x-8 mb-4">
+                        <div class="flex flex-col items-center">
+                            <div class="w-24 h-24 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-lg">PD</div>
+                            <span class="mt-2 font-semibold text-indigo-900">Design</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold text-xl shadow-inner border-2 border-dashed border-gray-400">PM</div>
+                            <span class="mt-2 font-semibold text-gray-500">Product</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-col items-center">
+                        <div class="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center text-gray-500 font-bold text-xl shadow-inner border-2 border-dashed border-gray-400">EM</div>
+                        <span class="mt-2 font-semibold text-gray-500">Engineering</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual 1: The Career Ladder Path -->
+    <section class="bg-white py-16 px-6 shadow-inner">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-center text-gray-900 mb-12">Dual Career Tracks</h2>
+            
+            <div class="relative">
+                <!-- Connectors -->
+                <div class="hidden md:block absolute top-1/2 left-0 w-full h-2 bg-gray-200 -translate-y-1/2 rounded-full"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-6 gap-4 text-center relative">
+                    
+                    <!-- Mid -->
+                    <div class="relative group">
+                        <div class="bg-indigo-50 border-2 border-indigo-200 rounded-xl p-4 shadow-sm hover:shadow-md transition-all h-full z-10 relative">
+                            <div class="text-sm text-indigo-500 font-bold uppercase tracking-wider mb-1">Level 1/2</div>
+                            <h3 class="text-lg font-bold text-gray-800">Mid-Level</h3>
+                            <p class="text-xs text-gray-500 mt-2">Embedded in Squad</p>
+                        </div>
+                    </div>
+
+                    <!-- Senior -->
+                    <div class="relative group">
+                        <div class="bg-indigo-100 border-2 border-indigo-300 rounded-xl p-4 shadow-sm hover:shadow-md transition-all h-full z-10 relative">
+                            <div class="text-sm text-indigo-600 font-bold uppercase tracking-wider mb-1">Level 3</div>
+                            <h3 class="text-lg font-bold text-gray-800">Senior</h3>
+                            <p class="text-xs text-gray-500 mt-2">Squad Leader & Mentor</p>
+                        </div>
+                    </div>
+
+                    <!-- The Fork -->
+                    <div class="md:col-span-4 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+                        <!-- IC Track -->
+                        <div class="bg-blue-50 rounded-2xl p-4 border border-blue-100">
+                            <div class="text-blue-800 font-bold mb-4 uppercase text-sm tracking-widest text-center">Craft & Strategy Track</div>
+                            <div class="space-y-4">
+                                <div class="bg-blue-600 text-white rounded-xl p-4 shadow-lg transform hover:-translate-y-1 transition">
+                                    <div class="text-xs opacity-75 font-bold">Level 4</div>
+                                    <h3 class="font-bold">Staff PD</h3>
+                                    <p class="text-xs mt-1 text-blue-100">Cross-Squad Architect</p>
+                                </div>
+                                <div class="flex justify-center"><span class="text-blue-300">▼</span></div>
+                                <div class="bg-blue-800 text-white rounded-xl p-4 shadow-lg transform hover:-translate-y-1 transition">
+                                    <div class="text-xs opacity-75 font-bold">Level 5/6</div>
+                                    <h3 class="font-bold">Principal PD</h3>
+                                    <p class="text-xs mt-1 text-blue-200">Org Strategy & Vision</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Management Track -->
+                        <div class="bg-pink-50 rounded-2xl p-4 border border-pink-100">
+                            <div class="text-pink-800 font-bold mb-4 uppercase text-sm tracking-widest text-center">Management Track</div>
+                            <div class="space-y-4">
+                                <div class="bg-pink-500 text-white rounded-xl p-4 shadow-lg transform hover:-translate-y-1 transition">
+                                    <div class="text-xs opacity-75 font-bold">Level 4 (Transition)</div>
+                                    <h3 class="font-bold">Lead PD</h3>
+                                    <p class="text-xs mt-1 text-pink-100">Squad Health & People Prep</p>
+                                </div>
+                                <div class="flex justify-center"><span class="text-pink-300">▼</span></div>
+                                <div class="bg-pink-700 text-white rounded-xl p-4 shadow-lg transform hover:-translate-y-1 transition">
+                                    <div class="text-xs opacity-75 font-bold">Level 5</div>
+                                    <h3 class="font-bold">Design Manager</h3>
+                                    <p class="text-xs mt-1 text-pink-200">Team Growth & Ops</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Director -->
+                <div class="mt-8 flex justify-center">
+                     <div class="bg-gray-900 text-white rounded-xl p-6 shadow-2xl w-full md:w-1/3 text-center border-t-4 border-cyan-400">
+                        <div class="text-sm text-cyan-400 font-bold uppercase tracking-wider mb-1">Level 6+</div>
+                        <h3 class="text-2xl font-bold">Director</h3>
+                        <p class="text-sm text-gray-400 mt-2">Org Health, Business Strategy & Culture</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Visual 2: Competency Radar Chart -->
+    <section class="py-16 px-6 max-w-7xl mx-auto">
+        <div class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">Competency Comparison</h2>
+            <p class="text-gray-600 max-w-2xl">
+                Comparing the expected impact across the five dimensions from the Lattice framework. Notice how the shape shifts from "Execution" heavy (Mid) to "Strategy & Mentorship" heavy (Staff/Principal/Manager).
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <!-- Radar Chart -->
+            <div class="bg-white p-6 rounded-2xl shadow-lg flex flex-col items-center justify-center">
+                <div class="chart-container radar-container">
+                    <canvas id="competencyRadar"></canvas>
+                </div>
+            </div>
+
+            <!-- Focus Distribution Bar Chart -->
+            <div class="flex flex-col space-y-8">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Time Allocation Shift</h3>
+                    <p class="text-sm text-gray-500 mb-4">How the day-to-day focus changes from pure craft to people and strategy.</p>
+                    <div class="chart-container bar-container">
+                        <canvas id="focusBarChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                    <h4 class="font-bold text-blue-900 mb-2">Key Takeaway</h4>
+                    <p class="text-sm text-blue-800">
+                        <strong>Senior PDs</strong> are the pivot point. They are expected to have high Execution skills while beginning to stretch into Strategy and Mentorship. 
+                        <br><br>
+                        <strong>Staff PDs</strong> double down on Strategy and Mentorship (technical coaching) while maintaining high Execution standards.
+                        <br><br>
+                        <strong>Managers</strong> trade Execution time for Mentorship (People Growth) and Collaboration (Org alignment).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Role Cards -->
+    <section class="bg-gray-100 py-16 px-6">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl font-bold text-gray-900 mb-12 text-center">Role Deep Dives</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+                
+                <!-- Mid-Level -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-indigo-400 hover:-translate-y-1 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Mid-Level</h3>
+                            <span class="bg-indigo-100 text-indigo-800 text-xs px-2 py-1 rounded-full uppercase font-bold">The Reliable Crafter</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start"><span class="text-indigo-500 mr-2">●</span> <strong>Scope:</strong> Owns 1-2 medium features within a squad.</li>
+                            <li class="flex items-start"><span class="text-indigo-500 mr-2">●</span> <strong>Execution:</strong> Delivers high-quality UI/UX with minimal oversight. Uses design system correctly.</li>
+                            <li class="flex items-start"><span class="text-indigo-500 mr-2">●</span> <strong>Strategy:</strong> Understands the "why" of their tasks.</li>
+                            <li class="flex items-start"><span class="text-indigo-500 mr-2">●</span> <strong>Collaboration:</strong> Active participant in Trio rituals. Receptive to feedback.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Senior -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-teal-400 hover:-translate-y-1 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Senior</h3>
+                            <span class="bg-teal-100 text-teal-800 text-xs px-2 py-1 rounded-full uppercase font-bold">The Squad Anchor</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start"><span class="text-teal-500 mr-2">●</span> <strong>Scope:</strong> Owns large, complex projects. Handles ambiguity well.</li>
+                            <li class="flex items-start"><span class="text-teal-500 mr-2">●</span> <strong>Execution:</strong> Sets the quality bar for the squad. Solves complex interaction problems.</li>
+                            <li class="flex items-start"><span class="text-teal-500 mr-2">●</span> <strong>Strategy:</strong> Contributes to roadmap planning. Identifying problems, not just solving them.</li>
+                            <li class="flex items-start"><span class="text-teal-500 mr-2">●</span> <strong>Mentorship:</strong> Onboards new hires. Mentors juniors/mids.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Staff -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-blue-600 hover:-translate-y-1 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Staff</h3>
+                            <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full uppercase font-bold">The Architect</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start"><span class="text-blue-500 mr-2">●</span> <strong>Scope:</strong> Cross-squad initiatives (e.g., Design System, Multi-product workflows).</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2">●</span> <strong>Execution:</strong> Defines patterns and standards. Force multiplier for quality.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2">●</span> <strong>Strategy:</strong> Influences product direction across pillars.</li>
+                            <li class="flex items-start"><span class="text-blue-500 mr-2">●</span> <strong>Influence:</strong> Technical leadership. "How we build" vs "Who we build for".</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Lead -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-pink-500 hover:-translate-y-1 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Lead</h3>
+                            <span class="bg-pink-100 text-pink-800 text-xs px-2 py-1 rounded-full uppercase font-bold">Manager-in-Training</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start"><span class="text-pink-500 mr-2">●</span> <strong>Scope:</strong> Large projects + Team Health responsibilities.</li>
+                            <li class="flex items-start"><span class="text-pink-500 mr-2">●</span> <strong>Focus:</strong> Starts shifting from "My Pixel Perfect Work" to "The Team's Output".</li>
+                            <li class="flex items-start"><span class="text-pink-500 mr-2">●</span> <strong>Ops:</strong> Runs crits, improves team processes, flags risks to management.</li>
+                            <li class="flex items-start"><span class="text-pink-500 mr-2">●</span> <strong>Mentorship:</strong> Proactive coaching. Often has a dotted-line report or intern.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Principal -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-purple-700 hover:-translate-y-1 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Principal</h3>
+                            <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full uppercase font-bold">The Visionary</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start"><span class="text-purple-600 mr-2">●</span> <strong>Scope:</strong> Organizational. Solves "wicked problems" that span the entire business.</li>
+                            <li class="flex items-start"><span class="text-purple-600 mr-2">●</span> <strong>Strategy:</strong> Defines the 1-2 year design vision. Partners with VP/C-level.</li>
+                            <li class="flex items-start"><span class="text-purple-600 mr-2">●</span> <strong>Execution:</strong> Often works on 0-1 concepts or major re-architectures.</li>
+                            <li class="flex items-start"><span class="text-purple-600 mr-2">●</span> <strong>Mentorship:</strong> Elevates the seniority of the entire staff/senior layer.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Manager -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border-t-4 border-orange-500 hover:-translate-y-1 transition duration-300">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-xl font-bold text-gray-900">Design Manager</h3>
+                            <span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full uppercase font-bold">The Coach</span>
+                        </div>
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-start"><span class="text-orange-500 mr-2">●</span> <strong>Scope:</strong> People & Team Output. Responsible for a group of designers.</li>
+                            <li class="flex items-start"><span class="text-orange-500 mr-2">●</span> <strong>Execution:</strong> Rarely hands-on design. Executes on <em>hiring</em>, <em>reviews</em>, and <em>culture</em>.</li>
+                            <li class="flex items-start"><span class="text-orange-500 mr-2">●</span> <strong>Collaboration:</strong> Partners with Group PMs/Engineering Directors to align staffing.</li>
+                            <li class="flex items-start"><span class="text-orange-500 mr-2">●</span> <strong>Success:</strong> Measured by the growth and retention of their direct reports.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+             <!-- Director Card (Full Width) -->
+             <div class="mt-8 bg-gray-800 text-white rounded-2xl shadow-2xl p-8 border-l-8 border-cyan-500">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                    <div class="col-span-1">
+                         <h3 class="text-2xl font-bold">Design Director</h3>
+                         <p class="text-cyan-400 mt-2 font-semibold">Strategic Leadership</p>
+                    </div>
+                    <div class="col-span-2 text-gray-300 text-sm leading-relaxed grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <strong class="text-white block mb-1">Organizational Design:</strong>
+                            Determining the structure (Trios, Pillars) that allows design to thrive. Solving resource allocation and scaling issues.
+                        </div>
+                        <div>
+                            <strong class="text-white block mb-1">Business Strategy:</strong>
+                            Translating company goals (OKR) into Design direction. Ensuring Design has a seat at the strategic table.
+                        </div>
+                        <div>
+                            <strong class="text-white block mb-1">Culture & Brand:</strong>
+                            Defining "Who we are" as a design team. Setting the bar for quality across the entire product portfolio.
+                        </div>
+                        <div>
+                            <strong class="text-white block mb-1">Management of Managers:</strong>
+                            Coaching Design Managers to become better leaders. Succession planning.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <p class="text-gray-500 text-sm">
+                Based on Lattice Competency Framework & Lokalise "Road to 2026" Vision.
+                <br>
+                For internal use by the Product Design Team.
+            </p>
+        </div>
+    </footer>
+
+    <!-- ✨ AI Floating Action Button -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="toggleAIModal()" class="flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-4 rounded-full shadow-2xl hover:scale-105 transition-all duration-300 font-bold text-lg border-2 border-white/20">
+            <span>✨</span> AI Tools
+        </button>
+    </div>
+
+    <!-- ✨ AI Tools Modal -->
+    <div id="aiModal" class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
+            
+            <!-- Modal Header -->
+            <div class="bg-gradient-to-r from-indigo-600 to-purple-600 p-6 text-white flex justify-between items-center shrink-0">
+                <h2 class="text-2xl font-bold flex items-center gap-2">✨ Design Org Assistant</h2>
+                <button onclick="toggleAIModal()" class="text-white/80 hover:text-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Tabs -->
+            <div class="flex border-b border-gray-200 shrink-0">
+                <button onclick="switchTab('growth')" id="tab-growth" class="flex-1 py-4 text-center font-semibold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50">Growth Coach</button>
+                <button onclick="switchTab('feedback')" id="tab-feedback" class="flex-1 py-4 text-center font-semibold text-gray-500 hover:text-gray-700">Feedback Architect</button>
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6 overflow-y-auto flex-1">
+                
+                <!-- Tab: Growth Coach -->
+                <div id="content-growth" class="space-y-4">
+                    <p class="text-gray-600 text-sm">Draft a personalized growth plan to reach the next level.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Current Role</label>
+                            <select id="growth-current" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <option>Mid-Level</option>
+                                <option>Senior</option>
+                                <option>Staff</option>
+                                <option>Lead</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Target Role</label>
+                            <select id="growth-target" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                                <option>Senior</option>
+                                <option>Staff</option>
+                                <option>Principal</option>
+                                <option>Lead</option>
+                                <option>Manager</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Self-Reflection / Context</label>
+                        <textarea id="growth-context" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. I'm great at UI but struggle to influence PMs..."></textarea>
+                    </div>
+
+                    <button onclick="generateGrowthPlan()" class="w-full bg-indigo-600 text-white py-3 rounded-xl font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-2">
+                        <span id="growth-btn-text">✨ Generate Plan</span>
+                        <div id="growth-loader" class="loader hidden"></div>
+                    </button>
+
+                    <!-- Results -->
+                    <div id="growth-result" class="hidden mt-4 bg-gray-50 p-4 rounded-xl border border-gray-200 markdown-prose text-sm text-gray-700"></div>
+                </div>
+
+                <!-- Tab: Feedback Architect -->
+                <div id="content-feedback" class="space-y-4 hidden">
+                    <p class="text-gray-600 text-sm">Draft constructive feedback based on observations and role expectations.</p>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Designer's Role</label>
+                        <select id="feedback-role" class="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500">
+                            <option>Mid-Level</option>
+                            <option>Senior</option>
+                            <option>Staff</option>
+                            <option>Lead</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Observation / Situation</label>
+                        <textarea id="feedback-context" rows="3" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500" placeholder="e.g. In the trio meeting, they didn't push back on an unrealistic timeline..."></textarea>
+                    </div>
+
+                    <button onclick="generateFeedback()" class="w-full bg-purple-600 text-white py-3 rounded-xl font-bold hover:bg-purple-700 transition flex items-center justify-center gap-2">
+                        <span id="feedback-btn-text">✨ Draft Feedback</span>
+                        <div id="feedback-loader" class="loader hidden"></div>
+                    </button>
+
+                    <!-- Results -->
+                    <div id="feedback-result" class="hidden mt-4 bg-gray-50 p-4 rounded-xl border border-gray-200 markdown-prose text-sm text-gray-700"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart Configuration Script -->
+    <script>
+        // Chart Defaults
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#4B5563';
+
+        // --- Data Setup ---
+        
+        // Competency Radar Data
+        const dimensions = ['Scope & Impact', 'Execution & Craft', 'Strategy & Vision', 'Collaboration', 'Mentorship & Leadership'];
+        
+        const radarData = {
+            labels: dimensions,
+            datasets: [
+                {
+                    label: 'Mid-Level',
+                    data: [2, 3, 1, 3, 1],
+                    borderColor: '#818CF8', // Indigo-400
+                    backgroundColor: 'rgba(129, 140, 248, 0.2)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#818CF8'
+                },
+                {
+                    label: 'Senior',
+                    data: [3, 4, 3, 4, 3],
+                    borderColor: '#2DD4BF', // Teal-400
+                    backgroundColor: 'rgba(45, 212, 191, 0.2)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#2DD4BF'
+                },
+                {
+                    label: 'Staff',
+                    data: [4, 5, 4, 5, 4],
+                    borderColor: '#2563EB', // Blue-600
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)', // Lower opacity to reduce clutter
+                    borderWidth: 2,
+                    borderDash: [5, 5], // Dashed to differentiate IC track
+                    pointBackgroundColor: '#2563EB'
+                },
+                {
+                    label: 'Manager',
+                    data: [4, 2, 4, 5, 5], // Note: Execution drops for Manager
+                    borderColor: '#EC4899', // Pink-500
+                    backgroundColor: 'rgba(236, 72, 153, 0.1)',
+                    borderWidth: 2,
+                    pointBackgroundColor: '#EC4899'
+                }
+            ]
+        };
+
+        // Focus Bar Chart Data
+        const roles = ['Mid', 'Senior', 'Staff', 'Lead', 'Principal', 'Manager', 'Director'];
+        // Categories: Execution (Hands-on), Strategy (Planning/Thinking), People (Mentoring/Hiring/Ops)
+        const focusData = {
+            labels: roles,
+            datasets: [
+                {
+                    label: 'Hands-on Execution',
+                    data: [80, 60, 50, 40, 30, 10, 5],
+                    backgroundColor: '#4F46E5', // Indigo-600
+                },
+                {
+                    label: 'Strategy & Ops',
+                    data: [10, 20, 30, 20, 50, 30, 65],
+                    backgroundColor: '#06B6D4', // Cyan-500
+                },
+                {
+                    label: 'People & Leadership',
+                    data: [10, 20, 20, 40, 20, 60, 30],
+                    backgroundColor: '#EC4899', // Pink-500
+                }
+            ]
+        };
+
+        // --- Chart Generation ---
+
+        // 1. Radar Chart
+        const radarCtx = document.getElementById('competencyRadar').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: radarData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#E5E7EB' },
+                        grid: { color: '#E5E7EB' },
+                        pointLabels: {
+                            font: { size: 12, weight: 'bold' },
+                            color: '#111827'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 5,
+                        ticks: { stepSize: 1, display: false } // Hide numbers for cleaner look
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                return tooltipItems[0].label; 
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // 2. Focus Bar Chart
+        const barCtx = document.getElementById('focusBarChart').getContext('2d');
+        new Chart(barCtx, {
+            type: 'bar',
+            data: focusData,
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: { stacked: true, grid: { display: false } },
+                    y: { stacked: true, max: 100, ticks: { callback: (val) => val + '%' } }
+                },
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            title: function(tooltipItems) {
+                                return tooltipItems[0].chart.data.labels[tooltipItems[0].dataIndex];
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // --- AI Features Logic ---
+
+        function toggleAIModal() {
+            const modal = document.getElementById('aiModal');
+            modal.classList.toggle('hidden');
+        }
+
+        function switchTab(tab) {
+            // UI Toggle
+            document.getElementById('tab-growth').className = tab === 'growth' 
+                ? "flex-1 py-4 text-center font-semibold text-indigo-600 border-b-2 border-indigo-600 bg-indigo-50/50"
+                : "flex-1 py-4 text-center font-semibold text-gray-500 hover:text-gray-700";
+            
+            document.getElementById('tab-feedback').className = tab === 'feedback'
+                ? "flex-1 py-4 text-center font-semibold text-purple-600 border-b-2 border-purple-600 bg-purple-50/50"
+                : "flex-1 py-4 text-center font-semibold text-gray-500 hover:text-gray-700";
+            
+            // Content Toggle
+            document.getElementById('content-growth').classList.toggle('hidden', tab !== 'growth');
+            document.getElementById('content-feedback').classList.toggle('hidden', tab !== 'feedback');
+        }
+
+        async function callGemini(prompt) {
+            const apiKey = ""; // Provided by environment
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const systemContext = `
+            You are an experienced Product Design Director at Lokalise. You are mentoring your team based on this matrix:
+            - Mid-Level: Execution focus, 1-2 medium features, reliable crafter.
+            - Senior: Squad anchor, large complex projects, mentor to juniors, starts strategy.
+            - Staff (IC): Cross-squad architect, technical leadership, influence without authority.
+            - Lead (Mgmt Track): Manager-in-training, squad health, people prep.
+            - Manager: Team growth, hiring, reviews, culture.
+            - Principal (IC): Org strategy, wicked problems, visionary.
+            
+            Your tone is encouraging, professional, specific, and growth-oriented. 
+            Keep responses concise (under 200 words) and use bullet points.
+            `;
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemContext }] }
+            };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                
+                if (!response.ok) throw new Error('API Error');
+                
+                const data = await response.json();
+                return data.candidates[0].content.parts[0].text;
+            } catch (error) {
+                console.error(error);
+                return "⚠️ Sorry, I couldn't reach the AI service. Please try again later.";
+            }
+        }
+
+        async function generateGrowthPlan() {
+            const current = document.getElementById('growth-current').value;
+            const target = document.getElementById('growth-target').value;
+            const context = document.getElementById('growth-context').value;
+            const resultDiv = document.getElementById('growth-result');
+            const loader = document.getElementById('growth-loader');
+            const btnText = document.getElementById('growth-btn-text');
+
+            // UI State: Loading
+            resultDiv.classList.add('hidden');
+            loader.classList.remove('hidden');
+            btnText.textContent = "Thinking...";
+
+            const prompt = `
+            The user is a ${current} Product Designer wanting to reach ${target}. 
+            Their self-reflection is: "${context}". 
+            Provide 3 specific, actionable steps to bridge the gap based on the Lokalise competency matrix. 
+            Focus on what behavior needs to shift (e.g., from 'owning features' to 'owning problems').
+            `;
+
+            const text = await callGemini(prompt);
+
+            // UI State: Done
+            resultDiv.innerHTML = marked.parse(text);
+            resultDiv.classList.remove('hidden');
+            loader.classList.add('hidden');
+            btnText.textContent = "✨ Generate Plan";
+        }
+
+        async function generateFeedback() {
+            const role = document.getElementById('feedback-role').value;
+            const context = document.getElementById('feedback-context').value;
+            const resultDiv = document.getElementById('feedback-result');
+            const loader = document.getElementById('feedback-loader');
+            const btnText = document.getElementById('feedback-btn-text');
+
+            // UI State: Loading
+            resultDiv.classList.add('hidden');
+            loader.classList.remove('hidden');
+            btnText.textContent = "Thinking...";
+
+            const prompt = `
+            I am a Manager observing a ${role} Product Designer. 
+            Observation: "${context}".
+            Draft constructive feedback for this person using the Situation-Behavior-Impact (SBI) model. 
+            Ensure the feedback aligns with the expectations of a ${role} level designer.
+            `;
+
+            const text = await callGemini(prompt);
+
+            // UI State: Done
+            resultDiv.innerHTML = marked.parse(text);
+            resultDiv.classList.remove('hidden');
+            loader.classList.add('hidden');
+            btnText.textContent = "✨ Draft Feedback";
+        }
+
+    </script>
+</body>
+</html>

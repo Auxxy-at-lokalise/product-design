@@ -29,16 +29,17 @@ import {
   Legend
 } from 'recharts';
 
-// --- Brand Colors (Approximation of Lokalise) ---
+// --- Brand Colors Updated ---
 // Dark Navy: #121A21
-// Teal: #00A59A
+// Salmon: #f97362 (Formerly Teal)
+// Salmon Light: #fef2f0 (Formerly Teal Light)
 // Light BG: #F7F9FB
 // Text: #1C2D3B
 
 const BRAND = {
   navy: "#121A21",
-  teal: "#00A59A",
-  tealLight: "#E6F6F5",
+  salmon: "#f97362",
+  salmonLight: "#fef2f0",
   gray: "#F7F9FB",
   slate: "#475569"
 };
@@ -55,12 +56,23 @@ const competencyData = [
 ];
 
 const timeData = [
-  { name: 'Mid (IC2)', Execution: 80, Mentorship: 5, Strategy: 10, Alignment: 5 },
-  { name: 'Senior (IC3)', Execution: 65, Mentorship: 10, Strategy: 15, Alignment: 10 },
-  { name: 'Lead (IC4)', Execution: 50, Mentorship: 20, Strategy: 15, Alignment: 15 },
+  // Focus: Pure Output & Learning
+  { name: 'Mid (IC2)', Execution: 85, Mentorship: 5, Strategy: 5, Alignment: 5 },
+  
+  // Focus: Output + Team Glue
+  { name: 'Senior (IC3)', Execution: 70, Mentorship: 10, Strategy: 10, Alignment: 10 },
+  
+  // The Pivot: Sacrificing pixel-time for people-time
+  { name: 'Lead (IC4)', Execution: 40, Mentorship: 30, Strategy: 10, Alignment: 20 },
+  
+  // The Parallel: Deep work + Technical Strategy
   { name: 'Staff (IC4)', Execution: 50, Mentorship: 15, Strategy: 25, Alignment: 10 },
-  { name: 'Manager (M2)', Execution: 10, Mentorship: 50, Strategy: 20, Alignment: 20 },
-  { name: 'Director (M6)', Execution: 0, Mentorship: 30, Strategy: 40, Alignment: 30 },
+  
+  // The Shift: Success through others
+  { name: 'Manager (M2)', Execution: 25, Mentorship: 40, Strategy: 15, Alignment: 20 },
+  
+  // The Vision: Org design & Stakeholder management
+  { name: 'Director (M6)', Execution: 15, Mentorship: 15, Strategy: 40, Alignment: 30 },
 ];
 
 const roles = [
@@ -139,11 +151,25 @@ const roles = [
 // --- Components ---
 
 const Header = () => (
-  <div className="w-full bg-[#121A21] text-white py-6 px-4 md:px-8 border-b-4 border-[#00A59A]">
+  <div className="w-full bg-[#121A21] text-white py-6 px-4 md:px-8 border-b-4 border-[#f97362]">
     <div className="max-w-6xl mx-auto flex justify-between items-center">
       <div className="flex items-center space-x-3">
-        {/* Pseudo Logo */}
-        <div className="w-8 h-8 bg-[#00A59A] rounded-md flex items-center justify-center font-bold text-white text-xl">L</div>
+        <div className="w-8 h-8 rounded-md flex items-center justify-center font-bold text-white text-xl">
+        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clipPath="url(#clip0_160_5)">
+<path d="M26.1408 0H9.8016C4.38833 0 0 4.38833 0 9.8016V26.1408C0 31.5541 4.38833 35.9424 9.8016 35.9424H26.1408C31.5541 35.9424 35.9424 31.5541 35.9424 26.1408V9.8016C35.9424 4.38833 31.5541 0 26.1408 0Z" fill="#FCB9B0"/>
+<path d="M28.4402 21.7302H24.7599H22.3181H21.7126L18.0362 25.4066L14.3559 21.7302H13.7543H11.3086H7.6322V25.4066H12.8342L15.4332 28.0096L18.0362 30.6086L20.6352 28.0096L23.2382 25.4066H28.4402V21.7302Z" fill="#0A0D12"/>
+<path d="M28.4402 14.3736H7.6322V18.0499H28.4402V14.3736Z" fill="#0A0D12"/>
+<path d="M28.4402 7.01675H7.6322V10.6931H28.4402V7.01675Z" fill="#0A0D12"/>
+</g>
+<defs>
+<clipPath id="clip0_160_5">
+<path d="M0 14.4C0 9.35953 0 6.83929 0.980941 4.91409C1.8438 3.22063 3.22063 1.8438 4.91409 0.980941C6.83929 0 9.35953 0 14.4 0H21.6C26.6405 0 29.1607 0 31.0859 0.980941C32.7794 1.8438 34.1562 3.22063 35.0191 4.91409C36 6.83929 36 9.35953 36 14.4V21.6C36 26.6405 36 29.1607 35.0191 31.0859C34.1562 32.7794 32.7794 34.1562 31.0859 35.0191C29.1607 36 26.6405 36 21.6 36H14.4C9.35953 36 6.83929 36 4.91409 35.0191C3.22063 34.1562 1.8438 32.7794 0.980941 31.0859C0 29.1607 0 26.6405 0 21.6V14.4Z" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
+        </div>
         <h1 className="text-2xl font-bold tracking-tight">Product Design <span className="text-gray-400 font-light">Career Architecture</span></h1>
       </div>
       <div className="text-sm text-gray-400 hidden md:block">
@@ -157,17 +183,17 @@ const SectionTitle = ({ title, subtitle }) => (
   <div className="mb-8">
     <h2 className="text-3xl font-bold text-[#121A21] mb-2">{title}</h2>
     <p className="text-[#475569] text-lg max-w-2xl">{subtitle}</p>
-    <div className="w-16 h-1 bg-[#00A59A] mt-4 rounded-full"></div>
+    <div className="w-16 h-1 bg-[#f97362] mt-4 rounded-full"></div>
   </div>
 );
 
 const TrioCard = ({ icon: Icon, title, role, desc }) => (
   <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center text-center hover:shadow-md transition-shadow">
-    <div className="w-12 h-12 bg-[#E6F6F5] rounded-full flex items-center justify-center text-[#00A59A] mb-4">
+    <div className="w-12 h-12 bg-[#fef2f0] rounded-full flex items-center justify-center text-[#f97362] mb-4">
       <Icon size={24} />
     </div>
     <h3 className="font-bold text-lg text-[#121A21]">{title}</h3>
-    <span className="text-xs font-semibold tracking-wider text-[#00A59A] uppercase mb-2">{role}</span>
+    <span className="text-xs font-semibold tracking-wider text-[#f97362] uppercase mb-2">{role}</span>
     <p className="text-sm text-gray-500">{desc}</p>
   </div>
 );
@@ -210,7 +236,7 @@ const CareerMap = () => {
         
         {/* Level 6 */}
         <div className="flex w-full justify-between px-20">
-          <div className="w-48 p-4 bg-[#121A21] text-white rounded-lg shadow-lg text-center border-l-4 border-[#00A59A]">
+          <div className="w-48 p-4 bg-[#121A21] text-white rounded-lg shadow-lg text-center border-l-4 border-[#f97362]">
             <div className="font-bold">Director</div>
             <div className="text-xs text-gray-400">M6 • Strategy</div>
           </div>
@@ -228,7 +254,7 @@ const CareerMap = () => {
 
         {/* Level 5 */}
         <div className="flex w-full justify-between px-20">
-          <div className="w-48 p-4 bg-[#121A21] text-white rounded-lg shadow-lg text-center border-l-4 border-[#00A59A]">
+          <div className="w-48 p-4 bg-[#121A21] text-white rounded-lg shadow-lg text-center border-l-4 border-[#f97362]">
             <div className="font-bold">Snr Manager</div>
             <div className="text-xs text-gray-400">M3 • Org Health</div>
           </div>
@@ -248,19 +274,19 @@ const CareerMap = () => {
         <div className="flex w-full justify-center space-x-8 items-center relative">
           
           {/* Manager M2 */}
-          <div className="w-48 p-4 bg-[#121A21] text-white rounded-lg shadow-lg text-center border-l-4 border-[#00A59A] relative">
+          <div className="w-48 p-4 bg-[#121A21] text-white rounded-lg shadow-lg text-center border-l-4 border-[#f97362] relative">
             <div className="font-bold">Manager</div>
             <div className="text-xs text-gray-400">M2 • People Support</div>
-            <div className="absolute -right-6 top-1/2 -translate-y-1/2 text-[#00A59A]">
+            <div className="absolute -right-6 top-1/2 -translate-y-1/2 text-[#f97362]">
               <ArrowRight size={20} strokeWidth={3} />
             </div>
           </div>
 
           {/* Lead IC4 */}
-          <div className="w-48 p-4 bg-teal-50 border-2 border-[#00A59A] text-[#121A21] rounded-lg shadow-lg text-center relative z-10">
-            <div className="font-bold text-[#00A59A]">Lead Designer</div>
+          <div className="w-48 p-4 bg-[#fef2f0] border-2 border-[#f97362] text-[#121A21] rounded-lg shadow-lg text-center relative z-10">
+            <div className="font-bold text-[#f97362]">Lead Designer</div>
             <div className="text-xs text-gray-600">IC4 • People Prep</div>
-            <div className="absolute -left-6 top-1/2 -translate-y-1/2 text-[#00A59A] transform rotate-180">
+            <div className="absolute -left-6 top-1/2 -translate-y-1/2 text-[#f97362] transform rotate-180">
                {/* Arrow handling in CSS above */}
             </div>
           </div>
@@ -310,7 +336,7 @@ const RoleCard = ({ role }) => {
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center space-x-4">
-          <div className={`text-sm font-bold px-2 py-1 rounded ${role.level.includes('M') ? 'bg-[#121A21] text-white' : 'bg-[#E6F6F5] text-[#00A59A]'}`}>
+          <div className={`text-sm font-bold px-2 py-1 rounded ${role.level.includes('M') ? 'bg-[#121A21] text-white' : 'bg-[#fef2f0] text-[#f97362]'}`}>
             {role.level}
           </div>
           <div>
@@ -328,7 +354,7 @@ const RoleCard = ({ role }) => {
           <ul className="space-y-2">
             {role.points.map((point, idx) => (
               <li key={idx} className="flex items-start text-sm text-gray-600">
-                <CheckCircle size={16} className="text-[#00A59A] mt-0.5 mr-2 flex-shrink-0" />
+                <CheckCircle size={16} className="text-[#f97362] mt-0.5 mr-2 flex-shrink-0" />
                 {point}
               </li>
             ))}
@@ -346,6 +372,7 @@ const App = () => {
     <div className="min-h-screen bg-white font-sans text-slate-800 pb-20">
       <Header />
 
+      {/* Centering wrapper using max-w-6xl and mx-auto */}
       <main className="max-w-6xl mx-auto px-4 md:px-8 pt-12">
         
         {/* Intro Section */}
@@ -353,7 +380,7 @@ const App = () => {
           <div>
             <h2 className="text-4xl font-extrabold text-[#121A21] mb-6 leading-tight">
               Designing the future,<br />
-              <span className="text-[#00A59A]">growing together.</span>
+              <span className="text-[#f97362]">growing together.</span>
             </h2>
             <p className="text-lg text-gray-600 mb-6">
               Our competency matrix is designed to provide clarity, not boxes. 
@@ -366,11 +393,11 @@ const App = () => {
               </div>
             </div>
           </div>
-          <div className="bg-[#E6F6F5] p-8 rounded-3xl relative overflow-hidden">
+          <div className="bg-[#fef2f0] p-8 rounded-3xl relative overflow-hidden">
              <div className="absolute top-0 right-0 p-4 opacity-10">
-               <Layout size={200} />
+               <Layout size={200} color="#f97362" />
              </div>
-             <h3 className="text-[#00A59A] font-bold mb-2">Director's Note</h3>
+             <h3 className="text-[#f97362] font-bold mb-2">Director's Note</h3>
              <p className="text-[#121A21] italic">
                "Getting a promotion from Lead to Manager isn't about going higher up in rank. 
                It represents a full transition to a different role where your product is the team itself."
@@ -413,8 +440,8 @@ const App = () => {
                    <Radar
                      name="Staff (IC4)"
                      dataKey="B"
-                     stroke="#00A59A"
-                     fill="#00A59A"
+                     stroke="#f97362"
+                     fill="#f97362"
                      fillOpacity={0.4}
                    />
                    <Radar
@@ -450,9 +477,11 @@ const App = () => {
                    <YAxis dataKey="name" type="category" width={100} tick={{fontSize: 12}} />
                    <Tooltip />
                    <Legend />
-                   <Bar dataKey="Execution" stackId="a" fill="#00A59A" name="Hands-on" />
-                   <Bar dataKey="Strategy" stackId="a" fill="#5EEAD4" name="Strategy" />
+                   {/* Updated Chart Colors to match Salmon theme */}
+                   <Bar dataKey="Execution" stackId="a" fill="#f97362" name="Hands-on" />
+                   <Bar dataKey="Strategy" stackId="a" fill="#ffb4a9" name="Strategy" />
                    <Bar dataKey="Mentorship" stackId="a" fill="#121A21" name="Mgmt/Mentoring" />
+                   <Bar dataKey="Alignment" stackId="a" fill="#94A3B8" name="Alignment" />
                  </BarChart>
                </ResponsiveContainer>
              </div>
@@ -474,9 +503,12 @@ const App = () => {
 
       </main>
       
-      <footer className="bg-gray-50 border-t border-gray-200 mt-20 py-12 text-center text-gray-400 text-sm">
-        <p>© 2024 Lokalise Product Design Organization</p>
-        <p className="mt-2">Internal use only. Based on Lattice competencies.</p>
+      <footer className="bg-gray-50 border-t border-gray-200 mt-20 py-12 text-sm">
+        {/* Footer centering to match main content */}
+        <div className="max-w-6xl mx-auto px-4 md:px-8 text-center text-gray-400">
+          <p>© 2025 Lokalise Product Design Organization</p>
+          <p className="mt-2">Internal use only. Based on Lattice competencies matrix, Vision 2026 for Design Team aided by Yuliia Picker, internal research from positions in Netflix, Spotify, Linear.</p>
+        </div>
       </footer>
     </div>
   );
